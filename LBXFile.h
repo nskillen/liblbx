@@ -25,22 +25,25 @@ const size_t LBX_HEADER_SIZE = 0x08;
 
 class LBXFile {
 public:
-	static LBXFile read_file(std::string);
-	static LBXFile create_lbx(std::string, std::vector<std::string>, uint16_t);
+    static LBXFile read_file(std::string);
+    static LBXFile create_lbx(std::string, std::vector<std::string>);
 
-	const std::vector<char> serialize() const;
-	void deserialize(std::vector<char>);
+    void serialize(std::string) const;
+    const std::vector<char> serialize() const;
 
-	const size_t size() const;
-	const size_t num_packed_files() const;
-	LBXPackedFile* get_file_number(size_t) const;
-	void pack_file(std::string);
-	void pack_file(std::string, size_t);
-	void remove_file(size_t);
+    void deserialize(std::string);
+    void deserialize(std::vector<char>);
+
+    size_t size() const;
+    size_t num_packed_files() const;
+    LBXPackedFile* get_file_number(size_t) const;
+    void pack_file(std::string);
+    void pack_file(std::string, size_t);
+    void remove_file(size_t);
 
 private:
-	uint16_t version;
-	std::vector<LBXPackedFile*> files;
+    uint16_t version;
+    std::vector<LBXPackedFile*> files;
 };
 
 }}
