@@ -1,4 +1,4 @@
-#include "../include/LBXPackedFile.h"
+#include "LBXPackedFile.h"
 
 using namespace OpenMOO2::LBX;
 

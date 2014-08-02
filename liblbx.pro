@@ -12,9 +12,13 @@ TARGET = liblbx
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES +=
+SOURCES += \
+    LBXFile.cpp \
+    LBXPackedFile.cpp
 
-HEADERS +=
+HEADERS += \
+    LBXFile.h \
+    LBXPackedFile.h
 unix {
 	target.path = /usr/lib
 	INSTALLS += target
