@@ -1,8 +1,4 @@
-lib/
-bin/
-obj/
-*.a
-*.o
-*.dll
+include/
 *.lbx
-*.exe
+*.o
+*.a

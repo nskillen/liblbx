@@ -17,7 +17,8 @@ std::vector<char> get_file_contents(std::string);
  **/
 LBXFile LBXFile::read_file(std::string filename) {
     LBXFile lbx;
-    lbx.deserialize(filename);
+    lbx.filename = filename;
+    lbx.deserialize(get_file_contents(filename));
     return lbx;
 }
 
@@ -29,41 +30,18 @@ LBXFile LBXFile::read_file(std::string filename) {
  * files_to_pack - the names of the files to be packed into the LBX file
  * version - the version of the LBX file, default is 0
  **/
-LBXFile LBXFile::create_lbx(std::string filename, std::vector<std::string> files_to_pack) {
-    LBXFile lbx;
-    for (std::string file_to_pack : files_to_pack) {
-        lbx.pack_file(file_to_pack);
-    }
-
-    std::ofstream file(filename, std::ios::binary);
-
-    if (!file.is_open()) {
-        throw std::runtime_error("Unable to open file "+filename+" for writing");
-    }
-
-    std::vector<char> lbx_data = lbx.serialize();
-
-    file.write(lbx_data.data(), lbx_data.size());
-
-    if (file.fail()) {
-        file.close();
-        throw std::runtime_error("Error while writing to file: " + filename);
-    }
-
-    file.flush();
-    file.close();
-
-    return lbx;
+void LBXFile::write_file(std::string filename, LBXFile & lbx) {
+    write_file(filename, &lbx);
 }
 
-void LBXFile::serialize(std::string filename) const {
+void LBXFile::write_file(std::string filename, LBXFile * lbx) {
     std::ofstream file(filename, std::ios::trunc|std::ios::binary);
 
     if (!file.is_open()) {
         throw std::runtime_error("Unable to open " + filename + " for writing");
     }
 
-    std::vector<char> lbx_data = serialize();
+    std::vector<char> lbx_data = lbx->serialize();
     file.write(lbx_data.data(), lbx_data.size());
 
     if (file.fail()) {
@@ -118,10 +96,6 @@ const std::vector<char> LBXFile::serialize() const {
     return lbx_data;
 }
 
-void LBXFile::deserialize(std::string filename) {
-    deserialize(get_file_contents(filename));
-}
-
 /**
  * De-serializes the LBX file from a bytestream into the object
  * Params:
@@ -146,6 +120,10 @@ void LBXFile::deserialize(std::vector<char> lbx_data) {
         files[i]->ending_offset(*reinterpret_cast<uint32_t*>(lbx_data.data()+8+(4*(i+1))));
         std::copy(lbx_data.begin()+files[i]->starting_offset(), lbx_data.begin()+files[i]->ending_offset(), files[i]->data().begin());
     }
+}
+
+std::string LBXFile::get_filename() const {
+    return filename;
 }
 
 size_t LBXFile::size() const {
