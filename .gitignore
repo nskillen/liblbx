@@ -1,4 +1,6 @@
-include/
+bin/
+obj/
 *.lbx
-*.o
-*.a
+*.depend
+*.layout
+Makefile
