@@ -42,6 +42,12 @@
 		</Compiler>
 		<Unit filename="LBXFile.cpp" />
 		<Unit filename="LBXFile.h" />
+		<Unit filename="LBXImage.cpp" />
+		<Unit filename="LBXImage.h" />
+		<Unit filename="LBXPalette.cpp" />
+		<Unit filename="LBXPalette.h" />
+		<Unit filename="LBXPaletteEntry.cpp" />
+		<Unit filename="LBXPaletteEntry.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

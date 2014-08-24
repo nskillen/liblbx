@@ -1,5 +1,5 @@
-#ifndef _OM2_LIBLBX_LBXFILE_
-#define _OM2_LIBLBX_LBXFILE_
+#ifndef _OM2_LBX_FILE_
+#define _OM2_LBX_FILE_
 
 #include <cstdint>
 #include <string>
@@ -102,8 +102,9 @@ private:
     uint16_t _version;
     std::vector<char> junk_data;
     std::vector<std::vector<char>> files;
+    LBXPalette palette;
 };
 
 }}
 
-#endif
+#endif // _OM2_LBX_FILE_
